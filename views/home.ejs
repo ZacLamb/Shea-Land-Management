@@ -1,5 +1,6 @@
 <%- include('partials/head') %>
 <section class="hero">
+  <% if (pics.hero) { %><div class="hero__img" style="background-image:url(<%= pics.hero %>)"></div><% } %>
   <div class="hero__topo"><%- topo.hero %></div>
   <div class="wrap hero__in">
     <div class="hero__copy">
@@ -33,6 +34,7 @@
     <div class="svc">
       <% services.forEach(function (s, i) { %>
       <a class="svc__card" href="/services/<%= s.slug %>">
+        <% if (pics[s.key]) { %><img class="svc__img" src="<%= pics[s.key] %>" alt="<%= s.short %> on a Cape Cod property" width="1200" height="800" loading="lazy"><% } %>
         <span class="svc__n">0<%= i + 1 %></span>
         <h3><%= s.name %></h3>
         <p><%= s.summary %></p>
@@ -53,12 +55,15 @@
       <p>We plan every job around those facts, so what we build and plant is still right years from now.</p>
       <a class="more" href="/about">About Shea Land Management &rarr;</a>
     </div>
+    <div>
+    <% if (pics.stone) { %><img class="shot" src="<%= pics.stone %>" alt="Dry-laid fieldstone wall and granite steps near the Cape Cod shore" width="1168" height="880" loading="lazy"><% } %>
     <ul class="facts">
       <li><b>Proper base work</b><span>Excavated, compacted in lifts and pitched for drainage under every patio, walk and wall.</span></li>
       <li><b>Local rules in mind</b><span>We flag Conservation Commission and historic district questions at the first visit, not after the work starts.</span></li>
       <li><b>Clear written quotes</b><span>You see what is included, what it costs and when we expect to start.</span></li>
       <li><b>Clean sites</b><span>Debris hauled, lawns raked out, and a walkthrough before we call a job finished.</span></li>
     </ul>
+    </div>
   </div>
 </section>
 

@@ -5,6 +5,7 @@
     <div class="svc">
       <% services.forEach(function (s, i) { %>
       <a class="svc__card" href="/services/<%= s.slug %>">
+        <% if (pics[s.key]) { %><img class="svc__img" src="<%= pics[s.key] %>" alt="<%= s.short %> on a Cape Cod property" width="1200" height="800" loading="lazy"><% } %>
         <span class="svc__n">0<%= i + 1 %></span>
         <h2><%= s.name %></h2>
         <p><%= s.summary %></p>

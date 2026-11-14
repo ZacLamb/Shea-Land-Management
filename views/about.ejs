@@ -13,6 +13,7 @@
       <ul class="links"><% services.forEach(function (s) { %><li><a href="/services/<%= s.slug %>"><%= s.name %></a></li><% }) %></ul>
     </div>
     <aside class="side">
+      <% if (pics.stone) { %><img class="shot shot--side" src="<%= pics.stone %>" alt="Dry-laid fieldstone wall and granite steps near the Cape Cod shore" width="1168" height="880" loading="lazy"><% } %>
       <h2>At a glance</h2>
       <ul class="glance">
         <li><b>Based in</b><span><%= site.base %>, <%= site.state %></span></li>

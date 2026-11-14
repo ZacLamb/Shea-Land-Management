@@ -13,6 +13,7 @@ const report = require('./lib/report');
 const articles = require('./lib/articles');
 const content = require('./lib/content');
 const topo = require('./lib/topo');
+const ghl = require('./lib/ghl');
 
 const app = express();
 app.set('trust proxy', true);
@@ -33,10 +34,22 @@ function projectPhotos() {
   } catch { return []; }
 }
 
+// Site photos live in public/images/site (see scripts/fetch-images.js).
+let picsCache = { at: 0, pics: {} };
+function sitePhotos() {
+  if (Date.now() - picsCache.at < 60000) return picsCache.pics;
+  const pics = {};
+  for (const k of ['hero', 'hardscaping', 'clearing', 'landscaping', 'tree', 'stone']) {
+    try { if (fs.statSync(path.join(__dirname, 'public/images/site', k + '.jpg')).size > 10000) pics[k] = `/images/site/${k}.jpg`; } catch { /* not there */ }
+  }
+  picsCache = { at: Date.now(), pics };
+  return pics;
+}
+
 app.use((req, res, next) => {
   const baseUrl = site.url || `${req.protocol}://${req.get('host')}`;
   Object.assign(res.locals, {
-    site, services, towns, topo, baseUrl,
+    site, services, towns, topo, baseUrl, pics: sitePhotos(),
     path: req.path,
     canonical: baseUrl + (req.path === '/' ? '/' : req.path.replace(/\/$/, '')),
     title: `${site.name} | ${site.tagline}`,
@@ -148,17 +161,11 @@ app.post('/api/lead', async (req, res) => {
   };
   if (!lead.name || (!lead.phone && !lead.email)) return res.redirect('/contact?error=1');
   let forwarded = false;
-  if (process.env.GHL_WEBHOOK_URL) {
-    try {
-      const [first, ...rest] = lead.name.split(/\s+/);
-      const r = await fetch(process.env.GHL_WEBHOOK_URL, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...lead, first_name: first, last_name: rest.join(' '), source: 'Website quote form', website: res.locals.baseUrl, submitted_at: new Date().toISOString() })
-      });
-      forwarded = r.ok;
-    } catch (e) { console.error('[lead] webhook failed', e.message); }
+  if (ghl.enabled()) {
+    try { forwarded = !!(await ghl.createLead(lead, res.locals.baseUrl)); }
+    catch (e) { console.error('[lead] GHL failed', e.message); }
   } else {
-    console.log('[lead] GHL_WEBHOOK_URL not set. Lead:', JSON.stringify(lead));
+    console.log('[lead] GHL_API_KEY not set. Lead:', JSON.stringify(lead));
   }
   if (db.pool) {
     try {
@@ -219,7 +226,7 @@ app.get('/sitemap.xml', async (req, res) => {
   res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${xml}</urlset>`);
 });
 
-app.get('/healthz', (req, res) => res.json({ ok: true, db: db.enabled }));
+app.get('/healthz', (req, res) => res.json({ ok: true, db: db.enabled, ghl: ghl.enabled() }));
 
 app.use((req, res) => res.status(404).render('404', { title: `Page Not Found | ${site.name}`, noindex: true }));
 app.use((err, req, res, next) => { console.error(err); res.status(500).send('Something went wrong. Please try again.'); });

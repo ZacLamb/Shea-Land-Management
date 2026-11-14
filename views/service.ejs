@@ -3,6 +3,7 @@
 <section class="sec">
   <div class="wrap split split--wide">
     <div class="prose">
+      <% if (pics[service.key]) { %><img class="shot" src="<%= pics[service.key] %>" alt="<%= service.short %> on a Cape Cod property" width="1200" height="800"><% } %>
       <% service.intro.forEach(function (p) { %><p><%= p %></p><% }) %>
       <h2>What we do</h2>
       <div class="items">

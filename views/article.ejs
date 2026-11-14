@@ -3,6 +3,7 @@
 <section class="sec">
   <div class="wrap split split--wide">
     <article class="prose prose--article">
+      <% if (service && pics[service.key]) { %><img class="shot" src="<%= pics[service.key] %>" alt="<%= service.short %> on a Cape Cod property" width="1200" height="800"><% } %>
       <p class="byline"><time datetime="<%= post.date.toISOString().slice(0, 10) %>"><%= post.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }) %></time> &middot; <%= site.name %></p>
       <%- post.body_html %>
     </article>
