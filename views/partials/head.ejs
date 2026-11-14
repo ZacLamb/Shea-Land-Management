@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/site.css?v=2">
+<link rel="stylesheet" href="/css/site.css?v=3">
 <% (schema || []).forEach(function (s) { %><script type="application/ld+json"><%- JSON.stringify(s).replace(/</g, '\\u003c') %></script>
 <% }) %>
 </head>
@@ -37,6 +37,7 @@
         </div>
       </div>
       <a href="/service-areas" <%- path.startsWith('/service-areas') ? 'aria-current="page"' : '' %>>Service Areas</a>
+      <a href="/estimate" <%- path === '/estimate' ? 'aria-current="page"' : '' %>>Instant Estimate</a>
       <a href="/articles" <%- path.startsWith('/articles') ? 'aria-current="page"' : '' %>>Articles</a>
       <a href="/about" <%- path === '/about' ? 'aria-current="page"' : '' %>>About</a>
       <% if (site.phone) { %><a class="nav__tel" href="<%= site.phoneHref %>" data-track="call_click" data-label="header"><%= site.phone %></a><% } %>

@@ -10,11 +10,14 @@ Node/Express + EJS site for Shea Land Management (East Sandwich, MA). Deploys on
 | Service pages | `/services/<service>` | 4 |
 | Town pages | `/service-areas/<town>-ma` | 15 |
 | Service-by-town pages (programmatic SEO) | `/services/<service>/<town>-ma` | 60 |
+| Instant estimate tool | `/estimate` | 6 project types |
 | Articles | `/articles`, `/articles/<slug>` | 5 starter articles + weekly |
 | SEO plumbing | `/sitemap.xml`, `/robots.txt`, JSON-LD on every page type | |
 
 Content lives in `data/`: `services.js`, `towns.js`, `articles-seed.js`, `topics.js` (the article queue) and `site.js`.
 Edit those files to change copy. Add a town or service there and its pages, links and sitemap entries appear on the next deploy.
+
+Instant estimate tool: prices live in `data/quote.js` as low/high ranges per unit, with a minimum per project and access multipliers. The numbers there are starting ballparks, not the owner's prices: confirm them with him before launch. Estimates submitted through the tool reach GHL tagged `instant-estimate` with the selections and the range shown in the contact note.
 
 Site photos: the six photos (hero, one per service, stone detail) are downloaded into `public/images/site/` during the build by `scripts/fetch-images.js`. To replace one with a real job photo, upload a file with the same name (`hero.jpg`, `hardscaping.jpg`, `clearing.jpg`, `landscaping.jpg`, `tree.jpg`, `stone.jpg`) to that folder.
 

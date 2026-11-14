@@ -5,6 +5,7 @@
       <p class="eyebrow eyebrow--light">Free written quotes</p>
       <h2><%= locals.ctaTitle || 'Have a project in mind? Walk the property with us.' %></h2>
       <p>Tell us what you are planning and where. We will come out, look at the site and give you a clear written price.</p>
+      <p class="cta__tel">Just want a number? <a href="/estimate" data-track="cta_click" data-label="cta estimate">Try the instant estimate tool</a></p>
       <% if (site.phone) { %><p class="cta__tel">Or call <a href="<%= site.phoneHref %>" data-track="call_click" data-label="cta band"><%= site.phone %></a></p><% } %>
     </div>
     <div class="card card--form"><%- include('form') %></div>

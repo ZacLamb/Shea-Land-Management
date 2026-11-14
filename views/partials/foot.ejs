@@ -13,7 +13,7 @@
       <h2>Services</h2>
       <ul><% services.forEach(function (s) { %><li><a href="/services/<%= s.slug %>"><%= s.name %></a></li><% }) %></ul>
       <h2>Company</h2>
-      <ul><li><a href="/about">About</a></li><li><a href="/articles">Articles</a></li><li><a href="/contact">Request a quote</a></li></ul>
+      <ul><li><a href="/estimate">Instant estimate</a></li><li><a href="/about">About</a></li><li><a href="/articles">Articles</a></li><li><a href="/contact">Request a quote</a></li></ul>
     </div>
     <div class="foot__towns">
       <h2>Service areas</h2>
@@ -23,6 +23,6 @@
   <div class="wrap foot__base"><span>&copy; <%= year %> <%= site.legalName %></span><span><a href="/sitemap.xml">Sitemap</a></span></div>
 </footer>
 <% if (site.phone) { %><a class="callbar" href="<%= site.phoneHref %>" data-track="call_click" data-label="mobile bar">Call <%= site.phone %></a><% } %>
-<script src="/js/site.js?v=2" defer></script>
+<script src="/js/site.js?v=3" defer></script>
 </body>
 </html>

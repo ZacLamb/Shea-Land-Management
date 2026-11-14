@@ -1,0 +1,60 @@
+<%- include('partials/head') %>
+<%- include('partials/pagehead', { crumbs: [['Home', '/'], ['Instant Estimate']], h1: 'Instant estimate', lead: 'Pick a project, enter a rough size and see a ballpark price range in seconds. No phone number needed to see it.', buttons: false }) %>
+<section class="sec">
+  <div class="wrap est" id="estimator">
+    <div class="est__main">
+      <fieldset class="est__step">
+        <legend><span>01</span> What is the project?</legend>
+        <div class="est__types" role="radiogroup" aria-label="Project type">
+          <% quote.projects.forEach(function (p, i) { %>
+          <label class="est__type"><input type="radio" name="est-project" value="<%= p.id %>" <%= i === 0 ? 'checked' : '' %>><span><b><%= p.name %></b><small><%= p.blurb %></small></span></label>
+          <% }) %>
+        </div>
+      </fieldset>
+      <fieldset class="est__step">
+        <legend><span>02</span> How big, and what kind?</legend>
+        <label class="est__field" for="est-size"><span id="est-size-label">Size</span>
+          <div class="est__size"><input type="number" id="est-size" inputmode="decimal"><em id="est-unit">sq ft</em></div>
+          <input type="range" id="est-range" aria-label="Size">
+          <small id="est-hint"></small>
+        </label>
+        <label class="est__field" for="est-option"><span id="est-option-label">Material</span><select id="est-option"></select></label>
+        <label class="est__check" id="est-addon-wrap" hidden><input type="checkbox" id="est-addon"><span id="est-addon-label"></span></label>
+      </fieldset>
+      <fieldset class="est__step">
+        <legend><span>03</span> How easy is it to get to?</legend>
+        <label class="est__field" for="est-access"><span>Access</span>
+          <select id="est-access"><% quote.access.forEach(function (a) { %><option value="<%= a.id %>"><%= a.label %></option><% }) %></select>
+        </label>
+      </fieldset>
+    </div>
+    <aside class="est__result" aria-live="polite">
+      <p class="eyebrow eyebrow--light">Your ballpark</p>
+      <p class="est__price"><span id="est-low">$0</span><i>to</i><span id="est-high">$0</span></p>
+      <p class="est__summary" id="est-summary"></p>
+      <p class="est__note"><%= quote.disclaimer %></p>
+      <form class="quote quote--dark" action="/api/lead" method="post" data-quote>
+        <input type="hidden" name="page" value="/estimate">
+        <input type="hidden" name="service" id="est-service">
+        <input type="hidden" name="estimate" id="est-hidden">
+        <p class="hp" aria-hidden="true"><label>Company <input type="text" name="company" tabindex="-1" autocomplete="off"></label></p>
+        <p class="est__formhead">Want a firm price? Book a free site visit.</p>
+        <div class="quote__row">
+          <label>Name<input type="text" name="name" required autocomplete="name"></label>
+          <label>Phone<input type="tel" name="phone" required autocomplete="tel"></label>
+        </div>
+        <div class="quote__row">
+          <label>Email <small>(optional)</small><input type="email" name="email" autocomplete="email"></label>
+          <label>Town
+            <select name="town"><option value="">Choose a town</option><% towns.forEach(function (t) { %><option><%= t.name %></option><% }) %><option>Other</option></select>
+          </label>
+        </div>
+        <label>Anything we should know? <small>(optional)</small><textarea name="message" rows="2"></textarea></label>
+        <button class="btn btn--clay btn--lg" type="submit">Send my estimate and book a visit</button>
+      </form>
+    </aside>
+  </div>
+</section>
+<script id="est-config" type="application/json"><%- JSON.stringify(quote).replace(/</g, '\\u003c') %></script>
+<script src="/js/estimate.js?v=1" defer></script>
+<%- include('partials/foot') %>

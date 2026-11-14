@@ -14,6 +14,7 @@ const articles = require('./lib/articles');
 const content = require('./lib/content');
 const topo = require('./lib/topo');
 const ghl = require('./lib/ghl');
+const quote = require('./data/quote');
 
 const app = express();
 app.set('trust proxy', true);
@@ -144,6 +145,12 @@ app.get('/contact', (req, res) => res.render('contact', {
   error: req.query.error || '', prefill: { service: req.query.service || '', town: req.query.town || '' }
 }));
 
+app.get('/estimate', (req, res) => res.render('estimate', {
+  quote,
+  title: `Instant Estimate: Patios, Walls, Clearing, Lawns & Tree Work | ${site.name}`,
+  description: `Get a ballpark price range in seconds for a patio, walkway, retaining wall, land clearing, new lawn or tree removal on Cape Cod from ${site.name}.`
+}));
+
 app.get('/thank-you', (req, res) => res.render('thanks', { title: `Thank You | ${site.name}`, noindex: true }));
 
 // ---------- Lead form ----------
@@ -157,7 +164,8 @@ app.post('/api/lead', async (req, res) => {
     town: String(b.town || '').trim().slice(0, 80),
     service: String(b.service || '').trim().slice(0, 80),
     message: String(b.message || '').trim().slice(0, 2000),
-    page: String(b.page || '').trim().slice(0, 300)
+    page: String(b.page || '').trim().slice(0, 300),
+    estimate: String(b.estimate || '').trim().slice(0, 400)
   };
   if (!lead.name || (!lead.phone && !lead.email)) return res.redirect('/contact?error=1');
   let forwarded = false;
@@ -216,7 +224,7 @@ app.post('/api/articles/generate', async (req, res) => {
 app.get('/robots.txt', (req, res) => res.type('text/plain').send(`User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api\nDisallow: /thank-you\nSitemap: ${res.locals.baseUrl}/sitemap.xml\n`));
 
 app.get('/sitemap.xml', async (req, res) => {
-  const urls = ['/', '/services', '/service-areas', '/articles', '/about', '/contact'];
+  const urls = ['/', '/services', '/service-areas', '/estimate', '/articles', '/about', '/contact'];
   services.forEach((s) => urls.push(`/services/${s.slug}`));
   towns.forEach((t) => urls.push(`/service-areas/${t.slug}`));
   services.forEach((s) => towns.forEach((t) => urls.push(`/services/${s.slug}/${t.slug}`)));
