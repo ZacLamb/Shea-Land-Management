@@ -1,0 +1,28 @@
+<form class="quote" action="/api/lead" method="post" data-quote>
+  <input type="hidden" name="page" value="<%= path %>">
+  <p class="hp" aria-hidden="true"><label>Company <input type="text" name="company" tabindex="-1" autocomplete="off"></label></p>
+  <div class="quote__row">
+    <label>Name<input type="text" name="name" required autocomplete="name"></label>
+    <label>Phone<input type="tel" name="phone" required autocomplete="tel"></label>
+  </div>
+  <div class="quote__row">
+    <label>Email <small>(optional)</small><input type="email" name="email" autocomplete="email"></label>
+    <label>Town
+      <select name="town">
+        <option value="">Choose a town</option>
+        <% towns.forEach(function (t) { %><option <%= (locals.formTown === t.name) ? 'selected' : '' %>><%= t.name %></option><% }) %>
+        <option>Other</option>
+      </select>
+    </label>
+  </div>
+  <label>What do you need?
+    <select name="service">
+      <option value="">Choose a service</option>
+      <% services.forEach(function (s) { %><option <%= (locals.formService === s.name) ? 'selected' : '' %>><%= s.name %></option><% }) %>
+      <option>Not sure yet</option>
+    </select>
+  </label>
+  <label>Tell us about the job<textarea name="message" rows="4" placeholder="Size, location on the property, timing, anything else"></textarea></label>
+  <button class="btn btn--clay btn--lg" type="submit">Request my free quote</button>
+  <p class="quote__note">We reply to every request. No obligation.</p>
+</form>

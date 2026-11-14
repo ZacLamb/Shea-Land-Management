@@ -1,0 +1,19 @@
+<%- include('partials/head') %>
+<%- include('partials/pagehead', { crumbs: [['Home', '/'], ['Traffic report']], h1: 'Traffic report: ' + r.date, lead: persistent ? 'Counts are for the full day, Eastern time.' : 'No database connected: counts reset whenever the site restarts.', buttons: false }) %>
+<section class="sec">
+  <div class="wrap">
+    <form class="datepick" method="get"><input type="hidden" name="key" value="<%= key %>"><label>Date <input type="date" name="date" value="<%= r.date %>"></label><button class="btn btn--clay">View</button></form>
+    <div class="stats">
+      <div><b><%= r.visitors %></b><span>Visitors</span></div>
+      <div><b><%= r.pageviews %></b><span>Pages viewed</span></div>
+      <div><b><%= r.call_clicks %></b><span>Tapped to call</span></div>
+      <div><b><%= r.quote_button_clicks %></b><span>Quote button clicks</span></div>
+      <div><b><%= r.quote_requests %></b><span>Quote requests</span></div>
+    </div>
+    <div class="split">
+      <div><h2>Most viewed pages</h2><table class="tbl"><% r.top_pages.forEach(function (p) { %><tr><td><%= p.name %></td><td><%= p.count %></td></tr><% }) %><% if (!r.top_pages.length) { %><tr><td>No page views recorded</td><td></td></tr><% } %></table></div>
+      <div><h2>Where visitors came from</h2><table class="tbl"><% r.top_sources.forEach(function (p) { %><tr><td><%= p.name %></td><td><%= p.count %></td></tr><% }) %><tr><td>Direct or unknown</td><td><%= r.direct_or_unknown_views %></td></tr></table></div>
+    </div>
+  </div>
+</section>
+<%- include('partials/foot') %>

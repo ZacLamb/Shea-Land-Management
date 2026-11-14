@@ -1,0 +1,18 @@
+<%- include('partials/head') %>
+<%- include('partials/pagehead', { crumbs: [['Home', '/'], ['Service Areas']], h1: 'Service areas: all 15 Cape Cod towns', lead: 'Based in ' + site.base + ' and working from the Canal to Provincetown.' }) %>
+<section class="sec">
+  <div class="wrap">
+    <div class="tcards">
+      <% towns.forEach(function (t) { %>
+      <a class="tcard" href="/service-areas/<%= t.slug %>">
+        <span class="tcard__area"><%= t.area %></span>
+        <h2><%= t.name %></h2>
+        <p><%= list(t.villages.slice(0, 4)) %></p>
+        <span class="more">View <%= t.name %> &rarr;</span>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<div id="quote"><%- include('partials/cta') %></div>
+<%- include('partials/foot') %>

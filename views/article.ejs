@@ -1,0 +1,21 @@
+<%- include('partials/head') %>
+<%- include('partials/pagehead', { crumbs: [['Home', '/'], ['Articles', '/articles'], [post.title]], h1: post.title, lead: post.excerpt, buttons: false }) %>
+<section class="sec">
+  <div class="wrap split split--wide">
+    <article class="prose prose--article">
+      <p class="byline"><time datetime="<%= post.date.toISOString().slice(0, 10) %>"><%= post.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }) %></time> &middot; <%= site.name %></p>
+      <%- post.body_html %>
+    </article>
+    <aside class="side">
+      <% if (service) { %>
+      <h2>Related service</h2>
+      <ul class="links"><li><a href="/services/<%= service.slug %>"><%= service.name %></a></li></ul>
+      <% } %>
+      <h2>More articles</h2>
+      <ul class="links"><% more.forEach(function (m) { %><li><a href="/articles/<%= m.slug %>"><%= m.title %></a></li><% }) %></ul>
+      <a class="btn btn--clay" href="/contact" data-track="cta_click" data-label="article side">Get a Free Quote</a>
+    </aside>
+  </div>
+</section>
+<%- include('partials/cta', { formService: service ? service.name : '' }) %>
+<%- include('partials/foot') %>

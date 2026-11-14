@@ -1,0 +1,17 @@
+<%- include('partials/head') %>
+<%- include('partials/pagehead', { crumbs: [['Home', '/'], ['Articles']], h1: 'Articles & advice', lead: 'Practical answers on stone work, clearing, planting and trees for Cape Cod properties.', buttons: false }) %>
+<section class="sec">
+  <div class="wrap">
+    <div class="posts">
+      <% posts.forEach(function (p) { %>
+      <a class="post" href="/articles/<%= p.slug %>">
+        <time datetime="<%= p.date.toISOString().slice(0, 10) %>"><%= p.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }) %></time>
+        <h2><%= p.title %></h2>
+        <p><%= p.excerpt %></p>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<%- include('partials/cta') %>
+<%- include('partials/foot') %>

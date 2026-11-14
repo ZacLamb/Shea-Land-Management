@@ -1,0 +1,30 @@
+<%- include('partials/head') %>
+<%- include('partials/pagehead', { crumbs: [['Home', '/'], ['Service Areas', '/service-areas'], [town.name + ', MA']], h1: 'Land & landscape contractor in ' + town.name + ', MA', lead: town.about }) %>
+<section class="sec">
+  <div class="wrap split split--wide">
+    <div class="prose">
+      <h2>Working in <%= town.name %></h2>
+      <p><%= town.land %></p>
+      <p><%= town.rules %> We point out anything like this at the first site visit.</p>
+      <p><% if (town.home) { %><%= town.name %> is home base for <%= site.name %>.<% } else { %><%= site.name %> is based in <%= site.base %> and serves all of <%= town.name %>.<% } %> We cover <%= list(town.villages) %> and everywhere in between.</p>
+      <h2>Our services in <%= town.name %></h2>
+      <div class="tsvc">
+        <% services.forEach(function (s) { %>
+        <a href="/services/<%= s.slug %>/<%= town.slug %>">
+          <h3><%= s.name %> in <%= town.name %></h3>
+          <p><%= town.notes[s.key] %></p>
+          <span class="more">More on <%= s.short.toLowerCase() %> in <%= town.name %> &rarr;</span>
+        </a>
+        <% }) %>
+      </div>
+    </div>
+    <aside class="side">
+      <h2>Villages & neighborhoods</h2>
+      <ul class="chips"><% town.villages.forEach(function (v) { %><li><%= v %></li><% }) %></ul>
+      <h2>Nearby towns</h2>
+      <ul class="links"><% near.forEach(function (n) { %><li><a href="/service-areas/<%= n.slug %>"><%= n.name %>, MA</a></li><% }) %><li><a href="/service-areas">All 15 towns</a></li></ul>
+    </aside>
+  </div>
+</section>
+<div id="quote"><%- include('partials/cta', { formTown: town.name, ctaTitle: 'Get a free quote in ' + town.name + '.' }) %></div>
+<%- include('partials/foot') %>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= title %></title>
+<meta name="description" content="<%= description %>">
+<% if (locals.noindex) { %><meta name="robots" content="noindex"><% } else { %><link rel="canonical" href="<%= canonical %>"><% } %>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="<%= site.name %>">
+<meta property="og:title" content="<%= title %>">
+<meta property="og:description" content="<%= description %>">
+<meta property="og:url" content="<%= canonical %>">
+<meta name="theme-color" content="#14241c">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/site.css?v=1">
+<% (schema || []).forEach(function (s) { %><script type="application/ld+json"><%- JSON.stringify(s).replace(/</g, '\\u003c') %></script>
+<% }) %>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap top__in">
+    <a class="brand" href="/" aria-label="<%= site.name %> home">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M4 30c5-9 9-14 16-14s11 5 16 14"/><path d="M10 30c3-6 6-9 10-9s7 3 10 9"/><path d="M16 30c1-3 2-4 4-4s3 1 4 4"/></g></svg>
+      <span><b>Shea</b><i>Land Management</i></span>
+    </a>
+    <button class="burger" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span><span></span></button>
+    <nav id="nav" class="nav" aria-label="Main">
+      <div class="nav__drop">
+        <a href="/services" <%- path.startsWith('/services') ? 'aria-current="page"' : '' %>>Services</a>
+        <div class="nav__menu">
+          <% services.forEach(function (s) { %><a href="/services/<%= s.slug %>"><%= s.name %></a><% }) %>
+        </div>
+      </div>
+      <a href="/service-areas" <%- path.startsWith('/service-areas') ? 'aria-current="page"' : '' %>>Service Areas</a>
+      <a href="/articles" <%- path.startsWith('/articles') ? 'aria-current="page"' : '' %>>Articles</a>
+      <a href="/about" <%- path === '/about' ? 'aria-current="page"' : '' %>>About</a>
+      <% if (site.phone) { %><a class="nav__tel" href="<%= site.phoneHref %>" data-track="call_click" data-label="header"><%= site.phone %></a><% } %>
+      <a class="btn btn--clay" href="/contact" data-track="cta_click" data-label="header">Get a Free Quote</a>
+    </nav>
+  </div>
+</header>
+<main id="main">

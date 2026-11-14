@@ -1,0 +1,16 @@
+{
+  "name": "shea-land-management",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shea Land Management website: services, Cape Cod town pages, programmatic SEO, articles, lead capture and daily traffic report",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "node-cron": "^3.0.3",
+    "pg": "^8.13.1"
+  }
+}

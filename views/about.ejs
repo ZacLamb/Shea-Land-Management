@@ -1,0 +1,27 @@
+<%- include('partials/head') %>
+<%- include('partials/pagehead', { crumbs: [['Home', '/'], ['About']], h1: 'About Shea Land Management', lead: 'A locally owned land and landscape contractor based in ' + site.base + ', working across Cape Cod.' }) %>
+<section class="sec">
+  <div class="wrap split split--wide">
+    <div class="prose">
+      <p><%= site.name %> takes on the outdoor work that changes how a property looks and functions: stone patios, walks and walls, land clearing and grading, planting and lawns, and tree removal and pruning.</p>
+      <p>We are based in <%= site.base %> and work in every town on the Cape, from Bourne and Sandwich out to Provincetown.</p>
+      <h2>How we work</h2>
+      <p>Every job starts with a walk of the property. We look at the ground, the drainage, the access and what is around the work area, then put a clear price in writing. If a project looks likely to need Conservation Commission or historic district review, we say so up front.</p>
+      <p>On site, the parts you cannot see get the most attention: excavation depth, base compaction, drainage behind walls, soil preparation under plantings. Those are what decide whether work lasts.</p>
+      <p>When we are finished, the debris is gone, the site is clean and we walk it with you.</p>
+      <h2>What we do</h2>
+      <ul class="links"><% services.forEach(function (s) { %><li><a href="/services/<%= s.slug %>"><%= s.name %></a></li><% }) %></ul>
+    </div>
+    <aside class="side">
+      <h2>At a glance</h2>
+      <ul class="glance">
+        <li><b>Based in</b><span><%= site.base %>, <%= site.state %></span></li>
+        <li><b>Service area</b><span>All 15 Cape Cod towns</span></li>
+        <li><b>Work</b><span>Hardscaping, land clearing, landscaping, tree work</span></li>
+        <li><b>Quotes</b><span>Free and in writing</span></li>
+      </ul>
+    </aside>
+  </div>
+</section>
+<div id="quote"><%- include('partials/cta') %></div>
+<%- include('partials/foot') %>

@@ -1,0 +1,103 @@
+<%- include('partials/head') %>
+<section class="hero">
+  <div class="hero__topo"><%- topo.hero %></div>
+  <div class="wrap hero__in">
+    <div class="hero__copy">
+      <p class="eyebrow eyebrow--light"><span class="dot"></span><%= site.base %>, Massachusetts &middot; Serving all of Cape Cod</p>
+      <h1>Stone set to stay. <em>Land cleared right.</em></h1>
+      <p class="hero__lead">Shea Land Management builds patios and walls, clears and grades land, installs landscapes and takes down trees, from the Canal to Provincetown.</p>
+      <div class="hero__btns">
+        <a class="btn btn--clay btn--lg" href="/contact" data-track="cta_click" data-label="hero">Get a Free Quote</a>
+        <% if (site.phone) { %><a class="btn btn--ghost btn--lg" href="<%= site.phoneHref %>" data-track="call_click" data-label="hero">Call <%= site.phone %></a><% } else { %><a class="btn btn--ghost btn--lg" href="/services">See our services</a><% } %>
+      </div>
+    </div>
+    <aside class="plat" aria-label="Services">
+      <div class="plat__head"><span>Site plan</span><span>41.74&deg;N 70.44&deg;W</span></div>
+      <ol>
+        <% services.forEach(function (s, i) { %>
+        <li><a href="/services/<%= s.slug %>"><span class="plat__n">0<%= i + 1 %></span><span class="plat__t"><%= s.name %></span><span class="plat__a" aria-hidden="true">&rarr;</span></a></li>
+        <% }) %>
+      </ol>
+      <div class="plat__foot">15 towns &middot; 4 trades &middot; written quotes</div>
+    </aside>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">What we do</p>
+      <h2>Four kinds of work, one contractor to call</h2>
+      <p>Most properties need more than one trade. We clear it, grade it, build the stone work and plant it, so nothing falls between contractors.</p>
+    </div>
+    <div class="svc">
+      <% services.forEach(function (s, i) { %>
+      <a class="svc__card" href="/services/<%= s.slug %>">
+        <span class="svc__n">0<%= i + 1 %></span>
+        <h3><%= s.name %></h3>
+        <p><%= s.summary %></p>
+        <ul><% s.items.slice(0, 4).forEach(function (it) { %><li><%= it[0] %></li><% }) %></ul>
+        <span class="more">Explore <%= s.short.toLowerCase() %> &rarr;</span>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--sand">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">Built for the Cape</p>
+      <h2>This ground is different. The work has to be too.</h2>
+      <p>Cape Cod is sand, salt and wind. Patios settle when the base is thin. Plants burn when they face the water. Pines come down in a nor'easter. And a good share of lots sit within reach of a wetland buffer or a historic district.</p>
+      <p>We plan every job around those facts, so what we build and plant is still right years from now.</p>
+      <a class="more" href="/about">About Shea Land Management &rarr;</a>
+    </div>
+    <ul class="facts">
+      <li><b>Proper base work</b><span>Excavated, compacted in lifts and pitched for drainage under every patio, walk and wall.</span></li>
+      <li><b>Local rules in mind</b><span>We flag Conservation Commission and historic district questions at the first visit, not after the work starts.</span></li>
+      <li><b>Clear written quotes</b><span>You see what is included, what it costs and when we expect to start.</span></li>
+      <li><b>Clean sites</b><span>Debris hauled, lawns raked out, and a walkthrough before we call a job finished.</span></li>
+    </ul>
+  </div>
+</section>
+
+<% if (photos.length) { %>
+<section class="sec">
+  <div class="wrap">
+    <div class="sec__head"><p class="eyebrow">Recent work</p><h2>From jobs around the Cape</h2></div>
+    <div class="gallery"><% photos.forEach(function (f) { %><img src="/images/projects/<%= f %>" alt="Shea Land Management project on Cape Cod" loading="lazy"><% }) %></div>
+  </div>
+</section>
+<% } %>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec__head">
+      <p class="eyebrow">Where we work</p>
+      <h2>Every town on Cape Cod</h2>
+      <p>Based in <%= site.base %> and working across the Upper, Mid, Lower and Outer Cape.</p>
+    </div>
+    <%- include('partials/townindex') %>
+  </div>
+</section>
+
+<section class="sec sec--sand">
+  <div class="wrap">
+    <div class="sec__head sec__head--row">
+      <div><p class="eyebrow">Articles</p><h2>Straight answers for Cape Cod properties</h2></div>
+      <a class="more" href="/articles">All articles &rarr;</a>
+    </div>
+    <div class="posts">
+      <% posts.forEach(function (p) { %>
+      <a class="post" href="/articles/<%= p.slug %>">
+        <time datetime="<%= p.date.toISOString().slice(0, 10) %>"><%= p.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }) %></time>
+        <h3><%= p.title %></h3>
+        <p><%= p.excerpt %></p>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<%- include('partials/cta') %>
+<%- include('partials/foot') %>

@@ -1,0 +1,19 @@
+<%- include('partials/head') %>
+<%- include('partials/pagehead', { crumbs: [['Home', '/'], ['Services']], h1: 'Services', lead: 'Hardscaping, land clearing, landscaping and tree work for homes and properties across Cape Cod.' }) %>
+<section class="sec">
+  <div class="wrap">
+    <div class="svc">
+      <% services.forEach(function (s, i) { %>
+      <a class="svc__card" href="/services/<%= s.slug %>">
+        <span class="svc__n">0<%= i + 1 %></span>
+        <h2><%= s.name %></h2>
+        <p><%= s.summary %></p>
+        <ul><% s.items.forEach(function (it) { %><li><%= it[0] %></li><% }) %></ul>
+        <span class="more">Explore <%= s.short.toLowerCase() %> &rarr;</span>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<div id="quote"><%- include('partials/cta') %></div>
+<%- include('partials/foot') %>

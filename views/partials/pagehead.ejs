@@ -1,0 +1,14 @@
+<section class="phead">
+  <div class="phead__topo"><%- topo.band %></div>
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><% crumbs.forEach(function (c, i) { %><% if (c[1]) { %><a href="<%= c[1] %>"><%= c[0] %></a><span aria-hidden="true">/</span><% } else { %><span><%= c[0] %></span><% } %><% }) %></nav>
+    <h1><%= h1 %></h1>
+    <% if (locals.lead) { %><p class="phead__lead"><%= lead %></p><% } %>
+    <% if (locals.buttons !== false) { %>
+    <div class="hero__btns">
+      <a class="btn btn--clay" href="#quote" data-track="cta_click" data-label="page head">Get a Free Quote</a>
+      <% if (site.phone) { %><a class="btn btn--ghost" href="<%= site.phoneHref %>" data-track="call_click" data-label="page head">Call <%= site.phone %></a><% } %>
+    </div>
+    <% } %>
+  </div>
+</section>

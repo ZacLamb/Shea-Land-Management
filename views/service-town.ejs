@@ -1,0 +1,34 @@
+<%- include('partials/head') %>
+<%- include('partials/pagehead', { crumbs: [['Home', '/'], [service.name, '/services/' + service.slug], [town.name + ', MA']], h1: page.h1, lead: page.lead }) %>
+<section class="sec">
+  <div class="wrap split split--wide">
+    <div class="prose">
+      <% page.paragraphs.forEach(function (p) { %><p><%= p %></p><% }) %>
+      <h2><%= service.short %> services in <%= town.name %></h2>
+      <div class="items">
+        <% service.items.forEach(function (it) { %><div><h3><%= it[0] %></h3><p><%= it[1] %></p></div><% }) %>
+      </div>
+      <h2>Good to know in <%= town.name %></h2>
+      <p><%= page.rules %> We raise anything like this at the site visit so there are no surprises later.</p>
+    </div>
+    <aside class="side">
+      <h2>Areas of <%= town.name %> we serve</h2>
+      <ul class="chips"><% town.villages.forEach(function (v) { %><li><%= v %></li><% }) %></ul>
+      <h2>Other services in <%= town.name %></h2>
+      <ul class="links">
+        <% services.filter(function (s) { return s.slug !== service.slug; }).forEach(function (s) { %><li><a href="/services/<%= s.slug %>/<%= town.slug %>"><%= s.name %> in <%= town.name %></a></li><% }) %>
+        <li><a href="/service-areas/<%= town.slug %>">All services in <%= town.name %></a></li>
+      </ul>
+      <h2><%= service.short %> nearby</h2>
+      <ul class="links"><% page.near.forEach(function (n) { %><li><a href="/services/<%= service.slug %>/<%= n.slug %>"><%= service.short %> in <%= n.name %></a></li><% }) %></ul>
+    </aside>
+  </div>
+</section>
+<section class="sec sec--sand">
+  <div class="wrap narrow">
+    <div class="sec__head"><p class="eyebrow">Questions</p><h2><%= service.short %> in <%= town.name %>: common questions</h2></div>
+    <%- include('partials/faqs', { faqs: page.faqs }) %>
+  </div>
+</section>
+<div id="quote"><%- include('partials/cta', { formService: service.name, formTown: town.name, ctaTitle: 'Get a ' + service.short.toLowerCase() + ' quote in ' + town.name + '.' }) %></div>
+<%- include('partials/foot') %>

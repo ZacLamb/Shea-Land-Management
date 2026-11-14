@@ -1,0 +1,31 @@
+<%- include('partials/head') %>
+<%- include('partials/pagehead', { crumbs: [['Home', '/'], ['Services', '/services'], [service.name]], h1: service.name + ' on Cape Cod', lead: service.summary }) %>
+<section class="sec">
+  <div class="wrap split split--wide">
+    <div class="prose">
+      <% service.intro.forEach(function (p) { %><p><%= p %></p><% }) %>
+      <h2>What we do</h2>
+      <div class="items">
+        <% service.items.forEach(function (it) { %><div><h3><%= it[0] %></h3><p><%= it[1] %></p></div><% }) %>
+      </div>
+    </div>
+    <aside class="side">
+      <h2>How a job runs</h2>
+      <ol class="steps"><% service.process.forEach(function (st) { %><li><b><%= st[0] %></b><span><%= st[1] %></span></li><% }) %></ol>
+    </aside>
+  </div>
+</section>
+<section class="sec sec--sand">
+  <div class="wrap">
+    <div class="sec__head"><p class="eyebrow">By town</p><h2><%= service.name %> in your town</h2><p>Soil, exposure and local rules change from one end of the Cape to the other. Pick your town for the details.</p></div>
+    <%- include('partials/townindex', { tixService: service }) %>
+  </div>
+</section>
+<section class="sec">
+  <div class="wrap narrow">
+    <div class="sec__head"><p class="eyebrow">Questions</p><h2>Common questions about <%= service.short.toLowerCase() %></h2></div>
+    <%- include('partials/faqs', { faqs: service.faqs }) %>
+  </div>
+</section>
+<div id="quote"><%- include('partials/cta', { formService: service.name, ctaTitle: 'Get a quote for ' + service.short.toLowerCase() + '.' }) %></div>
+<%- include('partials/foot') %>

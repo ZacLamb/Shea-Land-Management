@@ -1,0 +1,22 @@
+<%- include('partials/head') %>
+<%- include('partials/pagehead', { crumbs: [['Home', '/'], ['Contact']], h1: 'Request a free quote', lead: 'Tell us about the project. We will get back to you to set up a site visit.', buttons: false }) %>
+<section class="sec">
+  <div class="wrap split split--wide">
+    <div class="card card--form card--flat" id="quote">
+      <% if (error) { %><p class="alert">Please add your name and a phone number or email so we can reach you.</p><% } %>
+      <%- include('partials/form', { formService: (services.find(function (s) { return s.slug === prefill.service; }) || {}).name, formTown: (towns.find(function (t) { return t.slug === prefill.town; }) || {}).name }) %>
+    </div>
+    <aside class="side">
+      <h2>Reach us directly</h2>
+      <ul class="glance">
+        <% if (site.phone) { %><li><b>Phone</b><span><a href="<%= site.phoneHref %>" data-track="call_click" data-label="contact page"><%= site.phone %></a></span></li><% } %>
+        <% if (site.email) { %><li><b>Email</b><span><a href="mailto:<%= site.email %>" data-track="email_click" data-label="contact page"><%= site.email %></a></span></li><% } %>
+        <li><b>Based in</b><span><%= site.base %>, <%= site.state %> <%= site.zip %></span></li>
+        <li><b>Service area</b><span>All 15 Cape Cod towns</span></li>
+      </ul>
+      <h2>What happens next</h2>
+      <ol class="steps"><li><b>We reply</b><span>To confirm details and pick a time.</span></li><li><b>Site visit</b><span>We walk the property with you.</span></li><li><b>Written quote</b><span>A clear price, no obligation.</span></li></ol>
+    </aside>
+  </div>
+</section>
+<%- include('partials/foot') %>
