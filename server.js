@@ -15,6 +15,7 @@ const content = require('./lib/content');
 const topo = require('./lib/topo');
 const ghl = require('./lib/ghl');
 const quote = require('./data/quote');
+const capeMap = require('./lib/capemap');
 
 const app = express();
 app.set('trust proxy', true);
@@ -50,7 +51,7 @@ function sitePhotos() {
 app.use((req, res, next) => {
   const baseUrl = site.url || `${req.protocol}://${req.get('host')}`;
   Object.assign(res.locals, {
-    site, services, towns, topo, baseUrl, pics: sitePhotos(),
+    site, services, towns, topo, capeMap, baseUrl, pics: sitePhotos(),
     path: req.path,
     canonical: baseUrl + (req.path === '/' ? '/' : req.path.replace(/\/$/, '')),
     title: `${site.name} | ${site.tagline}`,
@@ -66,7 +67,8 @@ const adminOk = (req) => process.env.ADMIN_KEY && (req.query.key === process.env
 
 // ---------- Pages ----------
 app.get('/', async (req, res) => {
-  const posts = (await articles.all()).slice(0, 3);
+  const pics = res.locals.pics;
+  const posts = (await articles.all()).slice(0, 3).map((p) => ({ ...p, img: pics[(content.serviceBySlug(p.service) || {}).key] }));
   res.render('home', { posts, photos: projectPhotos(), schema: [content.businessSchema(res.locals.baseUrl)] });
 });
 

@@ -1,5 +1,9 @@
 <%- include('partials/head') %>
 <%- include('partials/pagehead', { crumbs: [['Home', '/'], ['Service Areas']], h1: 'Service areas: all 15 Cape Cod towns', lead: 'Based in ' + site.base + ' and working from the Canal to Provincetown.' }) %>
+<section class="sec sec--map">
+  <div class="sec__topo"><%- topo.band %></div>
+  <div class="wrap"><%- include('partials/capemap') %></div>
+</section>
 <section class="sec">
   <div class="wrap">
     <div class="tcards">

@@ -1,4 +1,4 @@
-<%- include('partials/head') %>
+<%- include('partials/head', { bodyClass: 'has-estbar' }) %>
 <%- include('partials/pagehead', { crumbs: [['Home', '/'], ['Instant Estimate']], h1: 'Instant estimate', lead: 'Pick a project, enter a rough size and see a ballpark price range in seconds. No phone number needed to see it.', buttons: false }) %>
 <section class="sec">
   <div class="wrap est" id="estimator">
@@ -33,7 +33,7 @@
       <p class="est__price"><span id="est-low">$0</span><i>to</i><span id="est-high">$0</span></p>
       <p class="est__summary" id="est-summary"></p>
       <p class="est__note"><%= quote.disclaimer %></p>
-      <form class="quote quote--dark" action="/api/lead" method="post" data-quote>
+      <form class="quote quote--dark" id="est-form" action="/api/lead" method="post" data-quote>
         <input type="hidden" name="page" value="/estimate">
         <input type="hidden" name="service" id="est-service">
         <input type="hidden" name="estimate" id="est-hidden">
@@ -55,6 +55,7 @@
     </aside>
   </div>
 </section>
+<div class="estbar" aria-hidden="true"><span><small>Your ballpark</small><b id="estbar-range">$0 to $0</b></span><a class="btn btn--clay" href="#est-form">Book a visit</a></div>
 <script id="est-config" type="application/json"><%- JSON.stringify(quote).replace(/</g, '\\u003c') %></script>
-<script src="/js/estimate.js?v=1" defer></script>
+<script src="/js/estimate.js?v=2" defer></script>
 <%- include('partials/foot') %>

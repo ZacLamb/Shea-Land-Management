@@ -1,0 +1,10 @@
+<div class="cmwrap">
+  <div class="cmwrap__map"><%- capeMap(locals.mapService ? mapService.slug : '') %></div>
+  <div class="cmwrap__list">
+    <% ['Upper Cape', 'Mid Cape', 'Lower Cape', 'Outer Cape'].forEach(function (area) { %>
+    <p><span><%= area %></span>
+      <% towns.filter(function (t) { return t.area === area; }).forEach(function (t) { %><a href="<%= locals.mapService ? '/services/' + mapService.slug + '/' + t.slug : '/service-areas/' + t.slug %>"><%= t.name %></a><% }) %>
+    </p>
+    <% }) %>
+  </div>
+</div>

@@ -16,10 +16,11 @@
     </aside>
   </div>
 </section>
-<section class="sec sec--sand">
+<section class="sec sec--map">
+  <div class="sec__topo"><%- topo.band %></div>
   <div class="wrap">
-    <div class="sec__head"><p class="eyebrow">By town</p><h2><%= service.name %> in your town</h2><p>Soil, exposure and local rules change from one end of the Cape to the other. Pick your town for the details.</p></div>
-    <%- include('partials/townindex', { tixService: service }) %>
+    <div class="sec__head sec__head--light"><p class="eyebrow eyebrow--light">By town</p><h2><%= service.name %> in your town</h2><p>Soil, exposure and local rules change from one end of the Cape to the other. Pick your town for the details.</p></div>
+    <%- include('partials/capemap', { mapService: service }) %>
   </div>
 </section>
 <section class="sec">

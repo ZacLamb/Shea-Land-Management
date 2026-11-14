@@ -38,6 +38,7 @@
     high = Math.max(low * 1.25, high * a.factor);
     $('est-low').textContent = money(low);
     $('est-high').textContent = money(high);
+    $('estbar-range').textContent = money(low) + ' to ' + money(high);
     var summary = p.name + ': ' + qty.toLocaleString('en-US') + ' ' + p.unit + ', ' + c.label.toLowerCase() +
       (p.addon && addon.checked ? ', ' + p.addon.label.toLowerCase() : '') + ', access ' + a.id;
     $('est-summary').textContent = summary;

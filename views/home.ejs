@@ -22,48 +22,42 @@
       <div class="plat__foot">15 towns &middot; 4 trades &middot; written quotes</div>
     </aside>
   </div>
+  <%- include('partials/wave', { cls: 'wave--paper' }) %>
 </section>
 
-<section class="sec">
-  <div class="wrap">
-    <div class="sec__head">
-      <p class="eyebrow">What we do</p>
-      <h2>Four kinds of work, one contractor to call</h2>
-      <p>Most properties need more than one trade. We clear it, grade it, build the stone work and plant it, so nothing falls between contractors.</p>
-    </div>
-    <div class="svc">
-      <% services.forEach(function (s, i) { %>
-      <a class="svc__card" href="/services/<%= s.slug %>">
-        <% if (pics[s.key]) { %><img class="svc__img" src="<%= pics[s.key] %>" alt="<%= s.short %> on a Cape Cod property" width="1200" height="800" loading="lazy"><% } %>
-        <span class="svc__n">0<%= i + 1 %></span>
-        <h3><%= s.name %></h3>
-        <p><%= s.summary %></p>
-        <ul><% s.items.slice(0, 4).forEach(function (it) { %><li><%= it[0] %></li><% }) %></ul>
-        <span class="more">Explore <%= s.short.toLowerCase() %> &rarr;</span>
-      </a>
-      <% }) %>
+<section class="sec sec--tight">
+  <div class="wrap pitch">
+    <p class="pitch__say">We clear it, grade it, build the stone work <span>and plant it.</span></p>
+    <div class="pitch__side">
+      <p>Most properties need more than one trade. With one contractor doing all four, nothing falls between crews.</p>
+      <a class="est-chip" href="/estimate" data-track="cta_click" data-label="pitch estimate"><b>What will it cost?</b><span>Get a ballpark in 30 seconds &rarr;</span></a>
     </div>
   </div>
 </section>
 
-<section class="sec sec--sand">
-  <div class="wrap split">
-    <div>
+<section class="sec sec--feats">
+  <div class="wrap">
+    <%- include('partials/feats') %>
+  </div>
+</section>
+
+<section class="sec sec--sand sec--curve">
+  <%- include('partials/wave', { cls: 'wave--top wave--sand' }) %>
+  <div class="wrap cape">
+    <div class="cape__text">
       <p class="eyebrow">Built for the Cape</p>
       <h2>This ground is different. The work has to be too.</h2>
       <p>Cape Cod is sand, salt and wind. Patios settle when the base is thin. Plants burn when they face the water. Pines come down in a nor'easter. And a good share of lots sit within reach of a wetland buffer or a historic district.</p>
       <p>We plan every job around those facts, so what we build and plant is still right years from now.</p>
       <a class="more" href="/about">About Shea Land Management &rarr;</a>
+      <% if (pics.stone) { %><figure class="cape__shot"><img src="<%= pics.stone %>" alt="Dry-laid fieldstone wall and granite steps near the Cape Cod shore" width="1168" height="880" loading="lazy"><figcaption>Dry-laid fieldstone, the Cape's original hardscape</figcaption></figure><% } %>
     </div>
-    <div>
-    <% if (pics.stone) { %><img class="shot" src="<%= pics.stone %>" alt="Dry-laid fieldstone wall and granite steps near the Cape Cod shore" width="1168" height="880" loading="lazy"><% } %>
-    <ul class="facts">
+    <ul class="notes">
       <li><b>Proper base work</b><span>Excavated, compacted in lifts and pitched for drainage under every patio, walk and wall.</span></li>
       <li><b>Local rules in mind</b><span>We flag Conservation Commission and historic district questions at the first visit, not after the work starts.</span></li>
       <li><b>Clear written quotes</b><span>You see what is included, what it costs and when we expect to start.</span></li>
       <li><b>Clean sites</b><span>Debris hauled, lawns raked out, and a walkthrough before we call a job finished.</span></li>
     </ul>
-    </div>
   </div>
 </section>
 
@@ -76,29 +70,33 @@
 </section>
 <% } %>
 
-<section class="sec">
+<section class="sec sec--map">
+  <div class="sec__topo"><%- topo.band %></div>
   <div class="wrap">
-    <div class="sec__head">
-      <p class="eyebrow">Where we work</p>
+    <div class="sec__head sec__head--light">
+      <p class="eyebrow eyebrow--light">Where we work</p>
       <h2>Every town on Cape Cod</h2>
-      <p>Based in <%= site.base %> and working across the Upper, Mid, Lower and Outer Cape.</p>
+      <p>Based in <%= site.base %>. Tap your town to see what we do there.</p>
     </div>
-    <%- include('partials/townindex') %>
+    <%- include('partials/capemap') %>
   </div>
 </section>
 
-<section class="sec sec--sand">
+<section class="sec">
   <div class="wrap">
     <div class="sec__head sec__head--row">
       <div><p class="eyebrow">Articles</p><h2>Straight answers for Cape Cod properties</h2></div>
       <a class="more" href="/articles">All articles &rarr;</a>
     </div>
-    <div class="posts">
-      <% posts.forEach(function (p) { %>
-      <a class="post" href="/articles/<%= p.slug %>">
-        <time datetime="<%= p.date.toISOString().slice(0, 10) %>"><%= p.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }) %></time>
-        <h3><%= p.title %></h3>
-        <p><%= p.excerpt %></p>
+    <div class="posts posts--lead">
+      <% posts.forEach(function (p, i) { %>
+      <a class="post<%= i === 0 ? ' post--lead' : '' %>" href="/articles/<%= p.slug %>">
+        <% if (i === 0 && p.img) { %><img src="<%= p.img %>" alt="" width="1200" height="800" loading="lazy"><% } %>
+        <div>
+          <time datetime="<%= p.date.toISOString().slice(0, 10) %>"><%= p.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }) %></time>
+          <h3><%= p.title %></h3>
+          <p><%= p.excerpt %></p>
+        </div>
       </a>
       <% }) %>
     </div>

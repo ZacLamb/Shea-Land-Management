@@ -1,0 +1,16 @@
+<div class="feats">
+  <% services.forEach(function (s, i) { %>
+  <article class="feat">
+    <a class="feat__media" href="/services/<%= s.slug %>" tabindex="-1" aria-hidden="true">
+      <% if (pics[s.key]) { %><img src="<%= pics[s.key] %>" alt="" width="1200" height="800" loading="lazy"><% } %>
+      <span class="feat__n">0<%= i + 1 %></span>
+    </a>
+    <div class="feat__body">
+      <<%= locals.featTag || 'h3' %>><a href="/services/<%= s.slug %>"><%= s.name %></a></<%= locals.featTag || 'h3' %>>
+      <p><%= s.summary %></p>
+      <ul><% s.items.slice(0, locals.featItems || 4).forEach(function (it) { %><li><%= it[0] %></li><% }) %></ul>
+      <a class="more" href="/services/<%= s.slug %>">Explore <%= s.short.toLowerCase() %> &rarr;</a>
+    </div>
+  </article>
+  <% }) %>
+</div>
