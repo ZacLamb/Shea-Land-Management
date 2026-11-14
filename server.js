@@ -162,7 +162,7 @@ app.post('/api/lead', async (req, res) => {
   }
   if (db.pool) {
     try {
-      await db.pool.query('INSERT INTO leads (name, phone, email, town, service, message, page, forwarded) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',
+      await db.pool.query('INSERT INTO shea_leads (name, phone, email, town, service, message, page, forwarded) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',
         [lead.name, lead.phone, lead.email, lead.town, lead.service, lead.message, lead.page, forwarded]);
     } catch (e) { console.error('[lead] save failed', e.message); }
   }
